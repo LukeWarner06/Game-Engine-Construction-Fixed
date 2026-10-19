@@ -32,6 +32,7 @@ int main()
     // Create the SFML window
     sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "GEC Start Project");
 
+    // Creates the Graphics system, supplying it with the created window,
     GraphicsSystem graphicsSystem(window);
 
     // Create a simple shape to draw
@@ -131,14 +132,19 @@ int main()
     AnimationClass* currentAnimation = dinosaurAnimationCollection["idle"];
 
     // Variable declaring the character's position.
-
+    
+    // Sets the default position of the dinosaur, this anchors the origin.
     sf::Vector2f dinosaurPosition = { 400, 450 };
+    // Sets the dinosaurs default movement speed, so that it can be adjusted later.
     float dinosaurMovementSpeed = 150;
 
+    // This sets the offset of the collision box to fit around the dinosaurs actual body and not its sprite textures width and height.
     sf::Vector2f dinosaurBodyOffset{ 130, 40 };
 
+    // Creates a visible outline of the dinosaurs collision box, containing its position minus the origin plus the offset.
     RectangleCollision dinosaurCollision({ dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset }, { 240, 380 });
 
+    //Creates a visible obstacle to test the dinosaurs collision.
     sf::RectangleShape testRect({ 60, 100 });
     testRect.setPosition({ 650, 300 });
 
@@ -191,12 +197,13 @@ int main()
             if (event->is<sf::Event::Closed>())
                 window.close();                          
         }
-
+        // Direction is reset every update.
         sf::Vector2f direction({ 0, 0 });
 
         // Elapsed time 
         sf::Time dt = uiDeltaClock.restart();
 
+        // Checks if the player is holding down any movement keys, with independent checks to allow for multiple directions at the same time, i.e. directional movement.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
         {
             direction.x++;
@@ -216,6 +223,8 @@ int main()
 
         AnimationClass* desiredAnimation = dinosaurAnimationCollection["idle"];
 
+        // Sets the dinosaurs animation to idle or run based on whether it is moving or not, this has a guard to check for zero direction. It also normalises the speed for diagonal movement to not end up faster than regular 1 directional movement. 
+        // Uses time based movement.
         if (direction.length() > 0)
         {
             direction = direction.normalized();
@@ -233,6 +242,7 @@ int main()
             }
         }
 
+        // The bounds and outline are synced right after movement with colour to show overlap and non-overlap.
         dinosaurCollision.SetCollisionPosition(dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset);
         dinosaurCollisionOutline.setPosition(dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset);
         if (dinosaurCollision.Intersect(testRectCollision))
@@ -259,9 +269,10 @@ int main()
         // Clear the window
         graphicsSystem.BeginFrame();
 
+        // Active sprite receives the shared position.
         currentAnimation->SetPosition(dinosaurPosition);
        
-        // Only the selected animation is rendered on the window each frame.
+        // Draws the obstacle, the current animation and then the collision outline, in that order to ensure no rendering issues.
         graphicsSystem.DrawRectangle(testRect);
         graphicsSystem.DrawAnimation(*currentAnimation);
        graphicsSystem.DrawRectangle(dinosaurCollisionOutline);
@@ -269,6 +280,7 @@ int main()
         // UI needs drawing last
         ImGui::SFML::Render(window);
 
+        // Displays the window.
         graphicsSystem.EndFrame();
     }
 

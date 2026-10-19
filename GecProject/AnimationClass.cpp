@@ -64,6 +64,7 @@ AnimationClass::~AnimationClass()
 
 void AnimationClass::SetFrameDuration(sf::Time frameDuration)
 {
+	// Frame duration must be positive, if not it wont play animations.
 	if (frameDuration > sf::Time::Zero)
 	{
 		m_frameDuration = frameDuration;
@@ -123,10 +124,12 @@ void AnimationClass::draw(sf::RenderWindow* window) const
 void AnimationClass::ResetFrameCount()
 {
 	m_currentFrame = 0;
+	m_spriteTimer = sf::Time::Zero;
 }
 
 void AnimationClass::SetPosition(sf::Vector2f position)
 {
+	// This guard prevents any values being applied if the sprite is found to contain a null pointer.
 	if (m_animatedSprite == nullptr)
 	{
 		return;
@@ -137,6 +140,7 @@ void AnimationClass::SetPosition(sf::Vector2f position)
 
 void AnimationClass::SetOrigin(sf::Vector2f origin)
 {
+	// This guard prevents any values being applied if the sprite is found to contain a null pointer.
 	if (m_animatedSprite == nullptr)
 	{
 		return;

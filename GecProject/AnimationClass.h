@@ -27,14 +27,16 @@ public:
 	// Updates the sprite to the next frame based on the spriteTimer and elapsed time.
 	void update(sf::Time dt);
 
-	// Draws the sprite in the render window.
+	// Draws the sprite in the render window, without modifying the aniamtion state. Additionally, the window must be valid.
 	void draw(sf::RenderWindow* window) const;
 
 	// Sets how long the frame should last based on the frameDuration.
 	void SetFrameDuration(sf::Time frameDuration);
 
+	// Resets the frame counter to zero.
 	void ResetFrameCount();
 
+	// Sets window position to the sprite,
 	void SetPosition(sf::Vector2f position);
 
 	void SetOrigin(sf::Vector2f origin);
@@ -57,6 +59,7 @@ private:
 	sf::Time m_spriteTimer{ sf::Time::Zero };
 	sf::Time m_frameDuration = sf::seconds(0.065f);
 	
+	// Rectangle for the texture region of the sprite.
 	sf::IntRect m_animatedRect;
 
 	SpriteLayout m_spriteOrientation = SpriteLayout::Vertical;
