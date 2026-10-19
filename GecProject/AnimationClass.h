@@ -28,7 +28,7 @@ public:
 	void update(sf::Time dt);
 
 	// Draws the sprite in the render window.
-	void draw(sf::RenderWindow* window);
+	void draw(sf::RenderWindow* window) const;
 
 	// Sets how long the frame should last based on the frameDuration.
 	void SetFrameDuration(sf::Time frameDuration);

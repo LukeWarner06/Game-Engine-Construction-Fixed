@@ -138,6 +138,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationClass.cpp" />
+    <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="IMGUI\imgui-SFML.cpp" />
     <ClCompile Include="IMGUI\imgui.cpp" />
     <ClCompile Include="IMGUI\imgui_draw.cpp" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationClass.h" />
     <ClInclude Include="ExternalHeaders.h" />
+    <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="RectangleCollision.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>

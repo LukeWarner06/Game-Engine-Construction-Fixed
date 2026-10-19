@@ -8,6 +8,7 @@
 #include "AnimationClass.h"
 #include "TextureManager.h"
 #include "RectangleCollision.h"
+#include "GraphicsSystem.h"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -30,6 +31,8 @@ int main()
 
     // Create the SFML window
     sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "GEC Start Project");
+
+    GraphicsSystem graphicsSystem(window);
 
     // Create a simple shape to draw
     sf::CircleShape shape(100.f);
@@ -254,19 +257,19 @@ int main()
         DefineGUI();
 
         // Clear the window
-        window.clear();
+        graphicsSystem.BeginFrame();
 
         currentAnimation->SetPosition(dinosaurPosition);
        
         // Only the selected animation is rendered on the window each frame.
-        window.draw(testRect);
-       currentAnimation->draw(&window);
-       window.draw(dinosaurCollisionOutline);
+        graphicsSystem.DrawRectangle(testRect);
+        graphicsSystem.DrawAnimation(*currentAnimation);
+       graphicsSystem.DrawRectangle(dinosaurCollisionOutline);
 
         // UI needs drawing last
         ImGui::SFML::Render(window);
 
-        window.display();
+        graphicsSystem.EndFrame();
     }
 
     std::cout << "Finished!" << std::endl;

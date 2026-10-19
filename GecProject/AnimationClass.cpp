@@ -109,7 +109,7 @@ void AnimationClass::update(sf::Time dt)
 	}
 }
 
-void AnimationClass::draw(sf::RenderWindow* window)
+void AnimationClass::draw(sf::RenderWindow* window) const
 {
 	// The drawing of the sprite is skipped if the sprite was not successfully created.
 	if (m_animatedSprite == nullptr)
