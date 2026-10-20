@@ -42,7 +42,6 @@ public:
 	void SetOrigin(sf::Vector2f origin);
 
 private:
-
 	void NextFrame();
 
 	// The texture is borrowed from the texture manage, compared to the animation which owns its sprite and is solely responsible for destroying it.

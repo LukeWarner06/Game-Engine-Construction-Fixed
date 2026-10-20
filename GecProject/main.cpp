@@ -135,6 +135,17 @@ int main()
     
     // Sets the default position of the dinosaur, this anchors the origin.
     sf::Vector2f dinosaurPosition = { 400, 450 };
+
+    float verticalVelocity = -600.0f;
+
+    float gravity = 2000.0f;
+
+    float startingDinosaurY = dinosaurPosition.y;
+
+    bool isGrounded = true;
+    
+    bool previousSpaceBarState = false;
+
     // Sets the dinosaurs default movement speed, so that it can be adjusted later.
     float dinosaurMovementSpeed = 150;
 
@@ -203,6 +214,8 @@ int main()
         // Elapsed time 
         sf::Time dt = uiDeltaClock.restart();
 
+        AnimationClass* desiredAnimation = dinosaurAnimationCollection["idle"];
+
         // Checks if the player is holding down any movement keys, with independent checks to allow for multiple directions at the same time, i.e. directional movement.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
         {
@@ -212,17 +225,31 @@ int main()
         {
             direction.x--;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+        
+        bool currentSpaceBarState = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+
+        if (currentSpaceBarState && !previousSpaceBarState && isGrounded == true)
         {
-            direction.y--;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-        {
-            direction.y++;
+            verticalVelocity = -600.0f;
+            isGrounded = false;
         }
 
-        AnimationClass* desiredAnimation = dinosaurAnimationCollection["idle"];
+        if (!isGrounded)
+        {
+            verticalVelocity += gravity * dt.asSeconds();
+            dinosaurPosition.y += verticalVelocity * dt.asSeconds();
+            desiredAnimation = dinosaurAnimationCollection["jump"];
 
+            if (dinosaurPosition.y >= startingDinosaurY)
+            {
+                dinosaurPosition.y = startingDinosaurY;
+                verticalVelocity = 0.0f;
+                isGrounded = true;
+            }
+        }
+
+        previousSpaceBarState = currentSpaceBarState;
+        
         // Sets the dinosaurs animation to idle or run based on whether it is moving or not, this has a guard to check for zero direction. It also normalises the speed for diagonal movement to not end up faster than regular 1 directional movement. 
         // Uses time based movement.
         if (direction.length() > 0)
@@ -230,10 +257,14 @@ int main()
             direction = direction.normalized();
             dinosaurPosition += direction * dinosaurMovementSpeed * dt.asSeconds();
 
-            desiredAnimation = dinosaurAnimationCollection["run"];
+            if (isGrounded)
+            {
+                desiredAnimation = dinosaurAnimationCollection["run"];
+            }
+            
         }
 
-        if (currentAnimation == dinosaurAnimationCollection["idle"] || currentAnimation == dinosaurAnimationCollection["run"])
+        if (currentAnimation == dinosaurAnimationCollection["idle"] || currentAnimation == dinosaurAnimationCollection["run"] || currentAnimation == dinosaurAnimationCollection["jump"])
         {
             if (currentAnimation != desiredAnimation)
             {
