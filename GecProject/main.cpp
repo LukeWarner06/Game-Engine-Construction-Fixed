@@ -177,36 +177,21 @@ int main()
             // Pressing these keys switches between idle, walk, run and dead animations.
             if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
-                if (keyPressed->code == sf::Keyboard::Key::Num1)
+                if (keyPressed->code == sf::Keyboard::Key::Num4)
                 {
-                    currentAnimation->ResetFrameCount();
-                    currentAnimation = dinosaurAnimationCollection["idle"];
-                }
-                else if (keyPressed->code == sf::Keyboard::Key::Num2)
-                {
-                    currentAnimation->ResetFrameCount();
-                    currentAnimation = dinosaurAnimationCollection["walk"];
-                }
-                else if (keyPressed->code == sf::Keyboard::Key::Num3)
-                {
-                    currentAnimation->ResetFrameCount();
-                    currentAnimation = dinosaurAnimationCollection["run"];
-                }
-                else if (keyPressed->code == sf::Keyboard::Key::Num4)
-                {
-                    currentAnimation->ResetFrameCount();
                     currentAnimation = dinosaurAnimationCollection["jump"];
+                    currentAnimation->ResetFrameCount();
                 }
                 else if (keyPressed->code == sf::Keyboard::Key::Num5)
                 {
-                    currentAnimation->ResetFrameCount();
                     currentAnimation = dinosaurAnimationCollection["dead"];
+                    currentAnimation->ResetFrameCount();
                 }
             }
 
             // User clicked on window close X
             if (event->is<sf::Event::Closed>())
-                window.close();                          
+                window.close();
         }
         // Direction is reset every update.
         sf::Vector2f direction({ 0, 0 });
@@ -224,6 +209,14 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
         {
             direction.x--;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+        {
+            direction.y++;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+        {
+            direction.y--;
         }
         
         bool currentSpaceBarState = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
@@ -261,7 +254,6 @@ int main()
             {
                 desiredAnimation = dinosaurAnimationCollection["run"];
             }
-            
         }
 
         if (currentAnimation == dinosaurAnimationCollection["idle"] || currentAnimation == dinosaurAnimationCollection["run"] || currentAnimation == dinosaurAnimationCollection["jump"])
