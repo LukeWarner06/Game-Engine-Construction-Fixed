@@ -6,7 +6,7 @@
 class EntityClass
 {
 public:
-
+	sf::Vector2f GetPosition();
 
 
 private:

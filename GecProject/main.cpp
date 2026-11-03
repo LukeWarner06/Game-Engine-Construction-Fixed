@@ -9,6 +9,7 @@
 #include "TextureManager.h"
 #include "RectangleCollision.h"
 #include "GraphicsSystem.h"
+#include "EntityClass.h"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -34,6 +35,8 @@ int main()
 
     // Creates the Graphics system, supplying it with the created window,
     GraphicsSystem graphicsSystem(window);
+
+    EntityClass entityClass;
 
     // Create a simple shape to draw
     sf::CircleShape shape(100.f);
@@ -131,8 +134,6 @@ int main()
     // A pointer to identify which animation is currently being updated and rendered on the window.
     AnimationClass* currentAnimation = dinosaurAnimationCollection["idle"];
 
-    // Variable declaring the character's position.
-    
     // Sets the default position of the dinosaur, this anchors the origin.
     sf::Vector2f dinosaurPosition = { 400, 450 };
 
@@ -293,7 +294,7 @@ int main()
         graphicsSystem.BeginFrame();
 
         // Active sprite receives the shared position.
-        currentAnimation->SetPosition(dinosaurPosition);
+        currentAnimation->SetPosition(entityClass.GetPosition());
        
         // Draws the obstacle, the current animation and then the collision outline, in that order to ensure no rendering issues.
         graphicsSystem.DrawRectangle(testRect);
