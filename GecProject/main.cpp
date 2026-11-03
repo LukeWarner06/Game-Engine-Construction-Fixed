@@ -249,7 +249,10 @@ int main()
         if (direction.length() > 0)
         {
             direction = direction.normalized();
+            dinosaurPosition = entityClass.GetPosition();
             dinosaurPosition += direction * dinosaurMovementSpeed * dt.asSeconds();
+            entityClass.SetPosition(dinosaurPosition);
+
 
             if (isGrounded)
             {
