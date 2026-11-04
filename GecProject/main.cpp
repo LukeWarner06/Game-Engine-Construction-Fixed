@@ -138,20 +138,9 @@ int main()
     AnimationClass* currentAnimation = dinosaurAnimationCollection["idle"];
 
     // Sets the default position of the dinosaur, this anchors the origin.
-    sf::Vector2f dinosaurPosition = { 400, 450 };
+    sf::Vector2f dinosaurPosition = { 400, 450 };\
 
-    float verticalVelocity = -600.0f;
-
-    float gravity = 2000.0f;
-
-    float startingDinosaurY = dinosaurPosition.y;
-
-    bool isGrounded = true;
-    
     bool previousSpaceBarState = false;
-
-    // Sets the dinosaurs default movement speed, so that it can be adjusted later.
-    float dinosaurMovementSpeed = 150;
 
     // This sets the offset of the collision box to fit around the dinosaurs actual body and not its sprite textures width and height.
     sf::Vector2f dinosaurBodyOffset{ 130, 40 };
