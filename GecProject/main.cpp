@@ -9,6 +9,7 @@
 #include "TextureManager.h"
 #include "RectangleCollision.h"
 #include "GraphicsSystem.h"
+#include "MovementClass.h"
 #include "EntityClass.h"
 
 #include <iostream>
@@ -35,6 +36,8 @@ int main()
 
     // Creates the Graphics system, supplying it with the created window,
     GraphicsSystem graphicsSystem(window);
+
+    MovementClass movementClass;
 
     EntityClass entityClass;
 
@@ -211,54 +214,34 @@ int main()
         {
             direction.x--;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-        {
-            direction.y++;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-        {
-            direction.y--;
-        }
         
         bool currentSpaceBarState = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
 
-        if (currentSpaceBarState && !previousSpaceBarState && isGrounded == true)
+        if (currentSpaceBarState && !previousSpaceBarState)
         {
-            verticalVelocity = -600.0f;
-            isGrounded = false;
+            movementClass.RequestJump();
         }
 
-        if (!isGrounded)
-        {
-            verticalVelocity += gravity * dt.asSeconds();
-            dinosaurPosition.y += verticalVelocity * dt.asSeconds();
-            desiredAnimation = dinosaurAnimationCollection["jump"];
+        dinosaurPosition = entityClass.GetPosition();
 
-            if (dinosaurPosition.y >= startingDinosaurY)
-            {
-                dinosaurPosition.y = startingDinosaurY;
-                verticalVelocity = 0.0f;
-                isGrounded = true;
-            }
+        if (!movementClass.GetGroundedState())
+        {
+            desiredAnimation = dinosaurAnimationCollection["jump"];
         }
 
         previousSpaceBarState = currentSpaceBarState;
         
         // Sets the dinosaurs animation to idle or run based on whether it is moving or not, this has a guard to check for zero direction. It also normalises the speed for diagonal movement to not end up faster than regular 1 directional movement. 
         // Uses time based movement.
-        if (direction.length() > 0)
+
+        dinosaurPosition = movementClass.MovementUpdate(dinosaurPosition, direction, dt);
+
+        if (movementClass.GetGroundedState() && direction.length() > 0)
         {
-            direction = direction.normalized();
-            dinosaurPosition = entityClass.GetPosition();
-            dinosaurPosition += direction * dinosaurMovementSpeed * dt.asSeconds();
-            entityClass.SetPosition(dinosaurPosition);
-
-
-            if (isGrounded)
-            {
-                desiredAnimation = dinosaurAnimationCollection["run"];
-            }
+            desiredAnimation = dinosaurAnimationCollection["run"];
         }
+
+        entityClass.SetPosition(dinosaurPosition);
 
         if (currentAnimation == dinosaurAnimationCollection["idle"] || currentAnimation == dinosaurAnimationCollection["run"] || currentAnimation == dinosaurAnimationCollection["jump"])
         {

@@ -9,6 +9,10 @@ public:
 
     void RequestJump();
 
+    sf::Vector2f MovementUpdate(sf::Vector2f currentPosition, sf::Vector2f direction, sf::Time elapsedTime);
+
+    bool GetGroundedState();
+
 private:
 	sf::Vector2f m_dinosaurPosition = { 400, 450 };
 
