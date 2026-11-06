@@ -40,9 +40,9 @@ int main()
     // Sets the default position of the dinosaur, this anchors the origin.
     sf::Vector2f dinosaurPosition = { 400, 450 };
 
-    MovementClass movementClass(;
-
     EntityClass entityClass;
+
+    MovementClass movementClass(entityClass.GetPosition().y);
 
     // Create a simple shape to draw
     sf::CircleShape shape(100.f);
@@ -139,8 +139,6 @@ int main()
 
     // A pointer to identify which animation is currently being updated and rendered on the window.
     AnimationClass* currentAnimation = dinosaurAnimationCollection["idle"];
-
-    
 
     bool previousSpaceBarState = false;
 
