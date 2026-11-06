@@ -37,7 +37,10 @@ int main()
     // Creates the Graphics system, supplying it with the created window,
     GraphicsSystem graphicsSystem(window);
 
-    MovementClass movementClass;
+    // Sets the default position of the dinosaur, this anchors the origin.
+    sf::Vector2f dinosaurPosition = { 400, 450 };
+
+    MovementClass movementClass(;
 
     EntityClass entityClass;
 
@@ -137,8 +140,7 @@ int main()
     // A pointer to identify which animation is currently being updated and rendered on the window.
     AnimationClass* currentAnimation = dinosaurAnimationCollection["idle"];
 
-    // Sets the default position of the dinosaur, this anchors the origin.
-    sf::Vector2f dinosaurPosition = { 400, 450 };\
+    
 
     bool previousSpaceBarState = false;
 
@@ -274,7 +276,7 @@ int main()
         // Draws the obstacle, the current animation and then the collision outline, in that order to ensure no rendering issues.
         graphicsSystem.DrawRectangle(testRect);
         graphicsSystem.DrawAnimation(*currentAnimation);
-       graphicsSystem.DrawRectangle(dinosaurCollisionOutline);
+        graphicsSystem.DrawRectangle(dinosaurCollisionOutline);
 
         // UI needs drawing last
         ImGui::SFML::Render(window);

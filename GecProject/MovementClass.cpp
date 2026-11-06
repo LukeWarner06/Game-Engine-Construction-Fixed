@@ -2,9 +2,9 @@
 
 
 
-MovementClass::MovementClass()
+MovementClass::MovementClass(float dinosaurHeight)
 {
-
+	m_startingDinosaurY = dinosaurHeight;
 }
 
 void MovementClass::RequestJump()

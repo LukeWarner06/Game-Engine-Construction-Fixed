@@ -5,7 +5,7 @@
 class MovementClass
 {
 public:
-    MovementClass();
+    MovementClass(float dinosaurHeight);
 
     void RequestJump();
 
