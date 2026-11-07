@@ -8,6 +8,11 @@ sf::Vector2f EntityClass::GetPosition()
 void EntityClass::SetPosition(sf::Vector2f newPosition)
 {
     dinosaurPosition = newPosition;
+    dinosaurCollision.SetCollisionPosition(newPosition - dinosaurOrigin + dinosaurBodyOffset);
 }
 
+bool EntityClass::GetOverlappingState(const RectangleCollision& collision) const
+{
+    return dinosaurCollision.Intersect(collision);
+}
 

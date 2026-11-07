@@ -145,9 +145,6 @@ int main()
     // This sets the offset of the collision box to fit around the dinosaurs actual body and not its sprite textures width and height.
     sf::Vector2f dinosaurBodyOffset{ 130, 40 };
 
-    // Creates a visible outline of the dinosaurs collision box, containing its position minus the origin plus the offset.
-    RectangleCollision dinosaurCollision({ dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset }, { 240, 380 });
-
     //Creates a visible obstacle to test the dinosaurs collision.
     sf::RectangleShape testRect({ 60, 100 });
     testRect.setPosition({ 650, 300 });
@@ -242,9 +239,8 @@ int main()
         }
 
         // The bounds and outline are synced right after movement with colour to show overlap and non-overlap.
-        dinosaurCollision.SetCollisionPosition(dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset);
         dinosaurCollisionOutline.setPosition(dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset);
-        if (dinosaurCollision.Intersect(testRectCollision))
+        if (entityClass.GetOverlappingState(testRectCollision))
         {
             testRect.setFillColor(sf::Color::Red);
             dinosaurCollisionOutline.setOutlineColor(sf::Color::Green);

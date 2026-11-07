@@ -9,6 +9,8 @@ public:
 	sf::Vector2f GetPosition();
 
 	void SetPosition(sf::Vector2f newPosition);
+	
+	bool GetOverlappingState(const RectangleCollision& collision) const;
 
 private:
 	// Sets the dinosaurs origin point to near the centre of its body.
