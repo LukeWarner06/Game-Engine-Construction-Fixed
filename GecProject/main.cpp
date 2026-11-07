@@ -37,10 +37,10 @@ int main()
     // Creates the Graphics system, supplying it with the created window,
     GraphicsSystem graphicsSystem(window);
 
-    // Sets the default position of the dinosaur, this anchors the origin.
-    sf::Vector2f dinosaurPosition = { 400, 450 };
-
     EntityClass entityClass;
+
+    // Sets the default position of the dinosaur, this anchors the origin.
+    sf::Vector2f dinosaurPosition = entityClass.GetPosition();
 
     MovementClass movementClass(entityClass.GetPosition().y);
 
