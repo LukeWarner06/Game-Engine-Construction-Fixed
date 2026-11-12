@@ -15,4 +15,3 @@ private:
 	sf::RectangleShape m_obstacle;
 	RectangleCollision rectCollision;
 };
-

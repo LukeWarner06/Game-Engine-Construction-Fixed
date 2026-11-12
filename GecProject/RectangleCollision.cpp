@@ -54,5 +54,3 @@ bool RectangleCollision::Intersect(const RectangleCollision& rect) const
 		return false;
 	}
 }
-
-

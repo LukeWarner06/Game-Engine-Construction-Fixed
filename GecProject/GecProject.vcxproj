@@ -151,6 +151,7 @@
     <ClCompile Include="RectangleCollision.cpp" />
     <ClCompile Include="RedirectCout.h" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="WorldSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationClass.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="ObstacleClass.h" />
     <ClInclude Include="RectangleCollision.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="WorldSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

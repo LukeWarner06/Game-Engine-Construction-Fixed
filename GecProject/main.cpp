@@ -12,6 +12,7 @@
 #include "MovementClass.h"
 #include "EntityClass.h"
 #include "ObstacleClass.h"
+#include "WorldSystem.h"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -34,6 +35,12 @@ int main()
 
     // Create the SFML window
     sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "GEC Start Project");
+
+    WorldSystem worldSystem;
+
+    worldSystem.AddObstacle({ 350, 250 }, { 80, 120 });
+    worldSystem.AddObstacle({ 500, 350 }, { 50, 80 });
+    worldSystem.AddObstacle({ 700, 300 }, { 60, 100 });
 
     ObstacleClass obstacleClass({ 350, 250 }, { 80, 120 });
 
@@ -239,7 +246,7 @@ int main()
 
         // The bounds and outline are synced right after movement with colour to show overlap and non-overlap.
         dinosaurCollisionOutline.setPosition(dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset);
-        if (entityClass.GetOverlappingState(obstacleClass.GetObstacleCollision()))
+        if (worldSystem.ObstacleCollision(entityClass))
         {
             testRect.setFillColor(sf::Color::Red);
             dinosaurCollisionOutline.setOutlineColor(sf::Color::Green);
@@ -268,9 +275,9 @@ int main()
        
         // Draws the obstacle, the current animation and then the collision outline, in that order to ensure no rendering issues.
         graphicsSystem.DrawRectangle(testRect);
+        worldSystem.DrawObstacles(graphicsSystem);
         graphicsSystem.DrawAnimation(*currentAnimation);
         graphicsSystem.DrawRectangle(dinosaurCollisionOutline);
-        graphicsSystem.DrawRectangle(obstacleClass.GetObstacle());
 
         // UI needs drawing last
         ImGui::SFML::Render(window);
