@@ -7,7 +7,6 @@
 #include "RedirectCout.h"
 #include "AnimationClass.h"
 #include "TextureManager.h"
-#include "RectangleCollision.h"
 #include "GraphicsSystem.h"
 #include "MovementClass.h"
 #include "EntityClass.h"
@@ -34,12 +33,16 @@ int main()
 
     // Create the SFML window
     sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "GEC Start Project");
+    sf::View cameraView(window.getDefaultView());
 
+    // World System creation, adding the 3 test obstacles.
     WorldSystem worldSystem;
 
     worldSystem.AddObstacle({ 350, 250 }, { 80, 120 });
     worldSystem.AddObstacle({ 500, 350 }, { 50, 80 });
     worldSystem.AddObstacle({ 700, 300 }, { 60, 100 });
+
+    worldSystem.AddObstacle({ 0, 520 }, { 2400, 80 });
 
     // Creates the Graphics system, supplying it with the created window,
     GraphicsSystem graphicsSystem(window);
@@ -49,6 +52,7 @@ int main()
     // Sets the default position of the dinosaur, this anchors the origin.
     sf::Vector2f dinosaurPosition = entityClass.GetPosition();
 
+    // Creates the movement class supplying the entity classes y position.
     MovementClass movementClass(entityClass.GetPosition().y);
 
     // Identifies the file paths for the four dinosaur animation sprite sheets.
@@ -147,8 +151,6 @@ int main()
 
     // This sets the offset of the collision box to fit around the dinosaurs actual body and not its sprite textures width and height.
     sf::Vector2f dinosaurBodyOffset{ 130, 40 };
-
-    //Creates a visible obstacle to test the dinosaurs collision.
 
     sf::RectangleShape dinosaurCollisionOutline({ 240, 380 });
     dinosaurCollisionOutline.setFillColor(sf::Color::Transparent);
@@ -258,8 +260,14 @@ int main()
         // The UI gets defined each time
         DefineGUI();
 
+        
+        float cameraCentre = entityClass.GetPosition().x - 200;
+        cameraCentre = std::clamp(cameraCentre, 400.f, 2000.f);
+        cameraView.setCenter(sf::Vector2f{cameraCentre, 300});
+
         // Clear the window
         graphicsSystem.BeginFrame();
+        window.setView(cameraView);
 
         // Active sprite receives the shared position.
         currentAnimation->SetPosition(entityClass.GetPosition());
@@ -270,6 +278,7 @@ int main()
         graphicsSystem.DrawRectangle(dinosaurCollisionOutline);
 
         // UI needs drawing last
+        window.setView(window.getDefaultView());
         ImGui::SFML::Render(window);
 
         // Displays the window.
