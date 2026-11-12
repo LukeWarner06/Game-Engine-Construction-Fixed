@@ -11,7 +11,6 @@
 #include "GraphicsSystem.h"
 #include "MovementClass.h"
 #include "EntityClass.h"
-#include "ObstacleClass.h"
 #include "WorldSystem.h"
 
 #include <iostream>
@@ -41,8 +40,6 @@ int main()
     worldSystem.AddObstacle({ 350, 250 }, { 80, 120 });
     worldSystem.AddObstacle({ 500, 350 }, { 50, 80 });
     worldSystem.AddObstacle({ 700, 300 }, { 60, 100 });
-
-    ObstacleClass obstacleClass({ 350, 250 }, { 80, 120 });
 
     // Creates the Graphics system, supplying it with the created window,
     GraphicsSystem graphicsSystem(window);
@@ -152,10 +149,6 @@ int main()
     sf::Vector2f dinosaurBodyOffset{ 130, 40 };
 
     //Creates a visible obstacle to test the dinosaurs collision.
-    sf::RectangleShape testRect({ 60, 100 });
-    testRect.setPosition({ 650, 300 });
-
-    RectangleCollision testRectCollision({ 650, 300 }, { 60, 100 });
 
     sf::RectangleShape dinosaurCollisionOutline({ 240, 380 });
     dinosaurCollisionOutline.setFillColor(sf::Color::Transparent);
@@ -248,13 +241,11 @@ int main()
         dinosaurCollisionOutline.setPosition(dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset);
         if (worldSystem.ObstacleCollision(entityClass))
         {
-            testRect.setFillColor(sf::Color::Red);
             dinosaurCollisionOutline.setOutlineColor(sf::Color::Green);
         }
 
         else
         {
-            testRect.setFillColor(sf::Color::Green);
             dinosaurCollisionOutline.setOutlineColor(sf::Color::Red);
         }
 
@@ -274,7 +265,6 @@ int main()
         currentAnimation->SetPosition(entityClass.GetPosition());
        
         // Draws the obstacle, the current animation and then the collision outline, in that order to ensure no rendering issues.
-        graphicsSystem.DrawRectangle(testRect);
         worldSystem.DrawObstacles(graphicsSystem);
         graphicsSystem.DrawAnimation(*currentAnimation);
         graphicsSystem.DrawRectangle(dinosaurCollisionOutline);
