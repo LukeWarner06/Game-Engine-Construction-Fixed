@@ -147,6 +147,7 @@
     <ClCompile Include="IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovementClass.cpp" />
+    <ClCompile Include="ObstacleClass.cpp" />
     <ClCompile Include="RectangleCollision.cpp" />
     <ClCompile Include="RedirectCout.h" />
     <ClCompile Include="TextureManager.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="ExternalHeaders.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="MovementClass.h" />
+    <ClInclude Include="ObstacleClass.h" />
     <ClInclude Include="RectangleCollision.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>

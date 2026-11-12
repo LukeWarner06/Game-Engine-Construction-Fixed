@@ -11,6 +11,7 @@
 #include "GraphicsSystem.h"
 #include "MovementClass.h"
 #include "EntityClass.h"
+#include "ObstacleClass.h"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -34,6 +35,8 @@ int main()
     // Create the SFML window
     sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "GEC Start Project");
 
+    ObstacleClass obstacleClass({ 350, 250 }, { 80, 120 });
+
     // Creates the Graphics system, supplying it with the created window,
     GraphicsSystem graphicsSystem(window);
 
@@ -43,10 +46,6 @@ int main()
     sf::Vector2f dinosaurPosition = entityClass.GetPosition();
 
     MovementClass movementClass(entityClass.GetPosition().y);
-
-    // Create a simple shape to draw
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
 
     // Identifies the file paths for the four dinosaur animation sprite sheets.
     std::string dinosaurIdleFileLocation = "Data/Textures/Dinodaur/idle_combined.png";
@@ -240,7 +239,7 @@ int main()
 
         // The bounds and outline are synced right after movement with colour to show overlap and non-overlap.
         dinosaurCollisionOutline.setPosition(dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset);
-        if (entityClass.GetOverlappingState(testRectCollision))
+        if (entityClass.GetOverlappingState(obstacleClass.GetObstacleCollision()))
         {
             testRect.setFillColor(sf::Color::Red);
             dinosaurCollisionOutline.setOutlineColor(sf::Color::Green);
@@ -271,6 +270,7 @@ int main()
         graphicsSystem.DrawRectangle(testRect);
         graphicsSystem.DrawAnimation(*currentAnimation);
         graphicsSystem.DrawRectangle(dinosaurCollisionOutline);
+        graphicsSystem.DrawRectangle(obstacleClass.GetObstacle());
 
         // UI needs drawing last
         ImGui::SFML::Render(window);
