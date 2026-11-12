@@ -120,18 +120,20 @@ int main()
     // Each object represents a different dinosaur animation sprite sheet with its own dimensions.
 
     AnimationClass dinosaurIdle(dinosaurIdleTexture, 682, 474, SpriteLayout::Vertical);
-    dinosaurIdle.SetOrigin(dinosaurOrigin);
-
+    dinosaurIdle.SetScale(sf::Vector2f(0.5f, 0.5f));
     AnimationClass dinosaurWalk(dinosaurWalkTexture, 682, 474, SpriteLayout::Vertical);
-    dinosaurWalk.SetOrigin(dinosaurOrigin);
-
+    dinosaurWalk.SetScale(sf::Vector2f(0.5f, 0.5f));
     AnimationClass dinosaurRun(dinosaurRunTexture, 682, 474, SpriteLayout::Vertical);
-    dinosaurRun.SetOrigin(dinosaurOrigin);
-
+    dinosaurRun.SetScale(sf::Vector2f(0.5f, 0.5f));
     AnimationClass dinosaurJump(dinosaurJumpTexture, 682, 474, SpriteLayout::Vertical);
-    dinosaurJump.SetOrigin(dinosaurOrigin);
-
+    dinosaurJump.SetScale(sf::Vector2f(0.5f, 0.5f));
     AnimationClass dinosaurDead(dinosaurDeadTexture, 682, 474, SpriteLayout::Vertical);
+    dinosaurDead.SetScale(sf::Vector2f(0.5f, 0.5f));
+
+    dinosaurIdle.SetOrigin(dinosaurOrigin);
+    dinosaurWalk.SetOrigin(dinosaurOrigin);
+    dinosaurRun.SetOrigin(dinosaurOrigin);
+    dinosaurJump.SetOrigin(dinosaurOrigin);
     dinosaurDead.SetOrigin(dinosaurOrigin);
 
     //Collection of Animations
@@ -152,7 +154,7 @@ int main()
     // This sets the offset of the collision box to fit around the dinosaurs actual body and not its sprite textures width and height.
     sf::Vector2f dinosaurBodyOffset{ 130, 40 };
 
-    sf::RectangleShape dinosaurCollisionOutline({ 240, 380 });
+    sf::RectangleShape dinosaurCollisionOutline({ 120, 190 });
     dinosaurCollisionOutline.setFillColor(sf::Color::Transparent);
     dinosaurCollisionOutline.setOutlineColor(sf::Color::Yellow);
     dinosaurCollisionOutline.setOutlineThickness({ 1 });
@@ -240,7 +242,7 @@ int main()
         }
 
         // The bounds and outline are synced right after movement with colour to show overlap and non-overlap.
-        dinosaurCollisionOutline.setPosition(dinosaurPosition - dinosaurOrigin + dinosaurBodyOffset);
+        dinosaurCollisionOutline.setPosition(dinosaurPosition + (dinosaurBodyOffset - dinosaurOrigin) * 0.5f);
         if (worldSystem.ObstacleCollision(entityClass))
         {
             dinosaurCollisionOutline.setOutlineColor(sf::Color::Green);

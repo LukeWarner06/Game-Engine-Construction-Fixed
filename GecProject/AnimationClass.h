@@ -38,8 +38,8 @@ public:
 
 	// Sets window position to the sprite,
 	void SetPosition(sf::Vector2f position);
-
 	void SetOrigin(sf::Vector2f origin);
+	void SetScale(sf::Vector2f scale);
 
 private:
 	void NextFrame();

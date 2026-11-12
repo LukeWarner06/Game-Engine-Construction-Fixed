@@ -148,3 +148,14 @@ void AnimationClass::SetOrigin(sf::Vector2f origin)
 
 	m_animatedSprite->setOrigin(origin);
 }
+
+void AnimationClass::SetScale(sf::Vector2f scale)
+{
+	// This guard prevents any values being applied if the sprite is found to contain a null pointer.
+	if (m_animatedSprite == nullptr)
+	{
+		return;
+	}
+
+	m_animatedSprite->setScale(scale);
+}
