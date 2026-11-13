@@ -12,6 +12,8 @@ public:
 	
 	bool GetOverlappingState(const RectangleCollision& collision) const;
 
+	const RectangleCollision& GetCollider() const;
+
 private:
 	// Sets the dinosaurs origin point to near the centre of its body.
 	sf::Vector2f dinosaurOrigin = { 220, 420 };

@@ -27,6 +27,20 @@ float RectangleCollision::GetRightEdge() const
 	return rightEdge;
 }
 
+float RectangleCollision::GetLeftEdge() const
+{
+	float leftEdge = m_rectanglePosition.x;
+
+	return leftEdge;
+}
+
+float RectangleCollision::GetTopEdge() const
+{
+	float topEdge = m_rectanglePosition.y;
+
+	return topEdge;
+}
+
 float RectangleCollision::GetBottomEdge() const
 {
 	float bottomEdge = m_rectanglePosition.y + m_rectangleSize.y;
@@ -43,7 +57,7 @@ bool RectangleCollision::Intersect(const RectangleCollision& rect) const
 	}
 
 	// Overlap is required on BOTH axes, with strict comparisons to exclude touching.
-	if (GetRightEdge() > rect.m_rectanglePosition.x && rect.GetRightEdge() > m_rectanglePosition.x &&
+	if (GetRightEdge() > rect.GetLeftEdge() && rect.GetRightEdge() > GetLeftEdge() &&
 		GetBottomEdge() > rect.m_rectanglePosition.y && rect.GetBottomEdge() > m_rectanglePosition.y)
 	{
 		return true;

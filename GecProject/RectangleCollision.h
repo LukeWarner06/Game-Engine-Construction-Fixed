@@ -17,6 +17,8 @@ public:
 
 	// Edges calculated from current information.
 	float GetRightEdge() const;
+	float GetLeftEdge() const;
+	float GetTopEdge() const;
 	float GetBottomEdge() const;
 
 private:

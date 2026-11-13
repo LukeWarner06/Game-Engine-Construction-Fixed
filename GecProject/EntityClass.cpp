@@ -15,3 +15,8 @@ bool EntityClass::GetOverlappingState(const RectangleCollision& collision) const
 {
     return dinosaurCollision.Intersect(collision);
 }
+
+const RectangleCollision& EntityClass::GetCollider() const
+{
+    return dinosaurCollision;
+}

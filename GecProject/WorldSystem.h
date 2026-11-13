@@ -14,6 +14,8 @@ public:
 
 	bool ObstacleCollision(const EntityClass& entityReference) const;
 
+	sf::Vector2f ResolveCollision(sf::Vector2f previousDinosaurPosition, sf::Vector2f newDinosaurPosition, const EntityClass& entityReference) const;
+
 private:
 	std::vector<ObstacleClass> m_obstacleCollection;
 };

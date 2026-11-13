@@ -223,12 +223,17 @@ int main()
         // Sets the dinosaurs animation to idle or run based on whether it is moving or not, this has a guard to check for zero direction. It also normalises the speed for diagonal movement to not end up faster than regular 1 directional movement. 
         // Uses time based movement.
 
+        sf::Vector2f previousDinosaurPosition = dinosaurPosition;
+
         dinosaurPosition = movementClass.MovementUpdate(dinosaurPosition, direction, dt);
+        dinosaurPosition.x = std::clamp(dinosaurPosition.x, 45.f, 2325.f);
 
         if (movementClass.GetGroundedState() && direction.length() > 0)
         {
             desiredAnimation = dinosaurAnimationCollection["run"];
         }
+
+        dinosaurPosition = worldSystem.ResolveCollision(previousDinosaurPosition, dinosaurPosition, entityClass);
 
         entityClass.SetPosition(dinosaurPosition);
 
