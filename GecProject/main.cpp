@@ -38,9 +38,9 @@ int main()
     // World System creation, adding the 3 test obstacles.
     WorldSystem worldSystem;
 
-    worldSystem.AddObstacle({ 350, 250 }, { 80, 120 });
-    worldSystem.AddObstacle({ 500, 350 }, { 50, 80 });
-    worldSystem.AddObstacle({ 700, 300 }, { 60, 100 });
+    worldSystem.AddObstacle({ 350, 500 }, { 80, 120 });
+    //worldSystem.AddObstacle({ 500, 350 }, { 50, 80 });
+    //worldSystem.AddObstacle({ 700, 300 }, { 60, 100 });
 
     worldSystem.AddObstacle({ 0, 520 }, { 2400, 80 });
 

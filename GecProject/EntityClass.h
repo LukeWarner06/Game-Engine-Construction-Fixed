@@ -6,12 +6,16 @@
 class EntityClass
 {
 public:
+	// Gets the current position of the entity.
 	sf::Vector2f GetPosition();
 
+	// Sets the position of the entity to a new position.
 	void SetPosition(sf::Vector2f newPosition);
 	
+	// Returns true or false if the entity is colliding with anything, read only.
 	bool GetOverlappingState(const RectangleCollision& collision) const;
 
+	// Read only getter that gets the entity's collider.
 	const RectangleCollision& GetCollider() const;
 
 private:
